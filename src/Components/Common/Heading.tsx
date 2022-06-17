@@ -3,14 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { Colors, Fonts, Metrics } from "../../Themes";
 
 type HeadingProps = {
-  title?: string;
+  title: string;
   paddingBottom?: number;
   fontSize?: number;
 };
 const Heading = ({
   title = "Details",
   paddingBottom = Metrics.smallMargin,
-  fontSize = Fonts.size.h1,
+  fontSize = Fonts.size.h3,
 }: HeadingProps) => {
   return (
     <View style={[styles.container, { paddingBottom }]}>
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
   container: {},
   text: {
     color: Colors.primaryText,
-    fontWeight: "600",
+    fontWeight: "500",
   },
 });

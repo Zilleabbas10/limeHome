@@ -6,4 +6,6 @@ export { default as MapMarker } from "./MapMarker";
 export { default as ImageTile } from "./ImageTile";
 export { default as PropertyTile } from "./PropertyTile";
 export { default as IconWithText } from "./IconWithText";
+export { default as PrimaryButton } from "./PrimaryButton";
 export { default as Divider } from "./Divider";
+export { default as ImageCarousel } from "./ImageCarousel";

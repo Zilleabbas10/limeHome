@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    overlayColor: Colors.white,
+    overlayColor: "transparent",
   },
   activityIndicator: {
     position: "absolute",

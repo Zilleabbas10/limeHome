@@ -6,15 +6,16 @@ import MapScreen from "../Screens/MapScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import FavouriteScreen from "../Screens/FavouriteScreen";
 import { Colors, Metrics } from "../Themes";
+import MapStack from "./Stacks/MapStack";
 
 const Tab = createBottomTabNavigator();
 const AppNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Map"
+      initialRouteName="MapStack"
       screenOptions={{
         tabBarStyle: {
-          height: 80,
+          height: Metrics.bottomtabsHeight,
           position: "absolute",
           backgroundColor: Colors.primary,
           borderTopLeftRadius: Metrics.doubleBaseMargin - Metrics.smallMargin,
@@ -41,8 +42,8 @@ const AppNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Map"
-        component={MapScreen}
+        name="MapStack"
+        component={MapStack}
         options={{
           tabBarLabel: "Map",
           tabBarIcon: ({ color, size }) => (

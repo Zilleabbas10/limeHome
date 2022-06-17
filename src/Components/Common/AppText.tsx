@@ -1,5 +1,6 @@
 import { Text } from "react-native";
 import { Colors, Fonts } from "../../Themes";
+
 type AppTextType = {
   color?: string;
   fontWeight?: "100" | "300" | "500" | "700" | "bold";

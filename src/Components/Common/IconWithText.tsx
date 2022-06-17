@@ -12,6 +12,7 @@ type IconWithTextType = {
   prefixIcon?: boolean;
   marginBetween?: number;
   fontSize?: number;
+  textStyle?: object;
 };
 const IconWithText = ({
   iconName = "location-outline",
@@ -21,6 +22,7 @@ const IconWithText = ({
   text = "",
   marginBetween = Metrics.smallMargin,
   fontSize = Fonts.size.extraSmall + 1,
+  textStyle = {},
 }: IconWithTextType) => {
   return (
     <View style={styles.container}>
@@ -32,8 +34,8 @@ const IconWithText = ({
         fontSize={fontSize}
         style={
           prefixIcon
-            ? { paddingLeft: marginBetween }
-            : { paddingRight: marginBetween }
+            ? { paddingLeft: marginBetween, ...textStyle }
+            : { paddingRight: marginBetween, ...textStyle }
         }
         text={text}
       />
@@ -48,7 +50,6 @@ export default IconWithText;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     flexDirection: "row",
     alignItems: "center",
   },

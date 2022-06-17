@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import NavigationService from "../../Services/NavigationService";
 import { Colors, Fonts, Metrics } from "../../Themes";
 import AppText from "./AppText";
 import Divider from "./Divider";
@@ -9,7 +10,10 @@ import ImageTile from "./ImageTile";
 
 const PropertyTile = () => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => NavigationService.navigate("Details")}
+      style={styles.container}
+    >
       <View style={styles.imageContainer}>
         <ImageTile uri="https://limehome.imgix.net/properties/152/bff791de-57fa-450b-869d-0a7bfac7a55c.jpg" />
         <View style={styles.ratingContainer}>
@@ -18,7 +22,7 @@ const PropertyTile = () => {
             text="4.5"
             iconSize={Fonts.size.tiny + 2}
             prefixIcon={false}
-            marginBetween={0}
+            marginBetween={2}
             fontSize={Fonts.size.tiny + 1}
           />
         </View>
@@ -36,7 +40,7 @@ const PropertyTile = () => {
           </AppText>
         </AppText>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
 
-    elevation: 3,
+    elevation: 10,
   },
   imageContainer: {
     width: "30%",
@@ -73,7 +77,6 @@ const styles = StyleSheet.create({
     right: Metrics.smallMargin + 2,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: Metrics.smallMargin,
   },
   dataContainer: {
     width: "70%",
