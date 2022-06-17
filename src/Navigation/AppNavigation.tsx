@@ -2,14 +2,16 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import SearchScreen from "../Screens/SearchScreen";
-import MapScreen from "../Screens/MapScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import FavouriteScreen from "../Screens/FavouriteScreen";
 import { Colors, Metrics } from "../Themes";
 import MapStack from "./Stacks/MapStack";
+import { useAppContext } from "../Contexts/AppContext";
 
 const Tab = createBottomTabNavigator();
 const AppNavigation = () => {
+  const { AppState } = useAppContext();
+  const { isTabBarVisible } = AppState;
   return (
     <Tab.Navigator
       initialRouteName="MapStack"
@@ -17,6 +19,7 @@ const AppNavigation = () => {
         tabBarStyle: {
           height: Metrics.bottomtabsHeight,
           position: "absolute",
+          display: isTabBarVisible ? "flex" : "none",
           backgroundColor: Colors.primary,
           borderTopLeftRadius: Metrics.doubleBaseMargin - Metrics.smallMargin,
           borderTopRightRadius: Metrics.doubleBaseMargin - Metrics.smallMargin,
