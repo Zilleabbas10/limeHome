@@ -5,19 +5,24 @@ import { AppText, PrimaryButton } from "../Common";
 import { Colors, Fonts, Metrics } from "../../Themes";
 import AppConstants from "../../Constants/AppConstants";
 
-const DetailsFooter = () => {
+type DetailsFooterType = {
+  perNightRate: number;
+};
+const DetailsFooter = ({ perNightRate }: DetailsFooterType) => {
   return (
     <View style={styles.container}>
       <AppText fontSize={Fonts.size.small + 1} text="From">
         <AppText
           fontSize={Fonts.size.small + 1}
           color={Colors.secondaryText}
-          text="55.00€/Night"
+          text={`${perNightRate}.00€/Night`}
         />
       </AppText>
       <PrimaryButton
         btnLabel="EXPLORE"
-        onPressHandler={() => alert("Button clicked")}
+        onPressHandler={() =>
+          alert("Feature coming soon!! Please have some patience. Thanks")
+        }
       />
     </View>
   );

@@ -7,7 +7,8 @@ import { useAppContext } from "../../Contexts/AppContext";
 import { APP_STATE } from "../../enums";
 
 const Stack = createNativeStackNavigator();
-const MapStack = ({ route, navigation }: any) => {
+
+const MapStack = ({ route }: any) => {
   const { AppState, AppDispatcher } = useAppContext();
   const { isTabBarVisible } = AppState;
 

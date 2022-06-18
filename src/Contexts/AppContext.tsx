@@ -4,6 +4,10 @@ import { AppStateType } from "../types";
 
 const defaultAppState: AppStateType = {
   isTabBarVisible: true,
+  properties: [],
+  likedProperties: [],
+  selectedProperty: null,
+  loader: true,
 };
 
 const reducer = (state: AppStateType, action: any) => {

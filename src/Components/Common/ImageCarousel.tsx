@@ -1,38 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import Carousel, {
   Pagination,
   ParallaxImage,
 } from "react-native-snap-carousel";
 import { View, StyleSheet, Platform } from "react-native";
 import { Colors, Metrics } from "../../Themes";
-
-const ENTRIES1 = [
-  {
-    title: "Beautiful and dramatic Antelope Canyon",
-    subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
-    illustration: "https://i.imgur.com/UYiroysl.jpg",
-  },
-  {
-    title: "Earlier this morning, NYC",
-    subtitle: "Lorem ipsum dolor sit amet",
-    illustration: "https://i.imgur.com/UPrs1EWl.jpg",
-  },
-  {
-    title: "White Pocket Sunset",
-    subtitle: "Lorem ipsum dolor sit amet et nuncat ",
-    illustration: "https://i.imgur.com/MABUbpDl.jpg",
-  },
-  {
-    title: "Acrocorinth, Greece",
-    subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
-    illustration: "https://i.imgur.com/KZsmUi2l.jpg",
-  },
-  {
-    title: "The lone tree, majestic landscape of New Zealand",
-    subtitle: "Lorem ipsum dolor sit amet",
-    illustration: "https://i.imgur.com/2nCt3Sbl.jpg",
-  },
-];
 
 type CarouselPaginationType = {
   slidesCount: number;
@@ -61,7 +33,7 @@ const RenderItem = ({ item }: any, parallaxProps: any) => {
   return (
     <View style={styles.item}>
       <ParallaxImage
-        source={{ uri: item.illustration }}
+        source={{ uri: item }}
         containerStyle={styles.imageContainer}
         style={styles.image}
         parallaxFactor={0.4}
@@ -71,34 +43,29 @@ const RenderItem = ({ item }: any, parallaxProps: any) => {
   );
 };
 
-const ImageCarousel = ({}) => {
-  const [entries, setEntries] = useState<any>([]);
-  const carouselRef = useRef<any>(null);
+type ImageCarouselType = {
+  images: string[];
+};
+const ImageCarousel = ({ images = [] }: ImageCarouselType) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
-
-  useEffect(() => {
-    setEntries(ENTRIES1);
-  }, []);
 
   return (
     <View style={styles.container}>
       <Carousel
-        layout={"default"}
         autoplay
         loop
         autoplayDelay={800}
-        ref={carouselRef}
         sliderWidth={Metrics.screenWidth}
         sliderHeight={Metrics.screenHeight / 3}
         itemWidth={Metrics.screenWidth}
         onSnapToItem={(index) => setActiveSlideIndex(index)}
-        data={entries}
+        data={images}
         //@ts-ignore
         renderItem={RenderItem}
         hasParallaxImages={true}
       />
       <CarouselPagination
-        slidesCount={entries.length}
+        slidesCount={images.length}
         activeSlideIndex={activeSlideIndex}
       />
     </View>
@@ -116,7 +83,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
-    backgroundColor: "white",
+    backgroundColor: Colors.secondary,
   },
   image: {
     ...StyleSheet.absoluteFillObject,

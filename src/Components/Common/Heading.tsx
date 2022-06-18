@@ -26,5 +26,6 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.primaryText,
     fontWeight: "500",
+    textTransform: "capitalize",
   },
 });

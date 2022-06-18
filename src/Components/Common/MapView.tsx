@@ -1,43 +1,32 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
+import { MarkerType, PropertyType } from "../../types";
 
 import MapMarker from "./MapMarker";
 
-const MARKERS = [
-  {
-    latitude: 52.52,
-    longitude: 13.405,
-  },
-  {
-    latitude: 52.51,
-    longitude: 13.38,
-  },
-  {
-    latitude: 52.53,
-    longitude: 13.43,
-  },
-  {
-    latitude: 52.54,
-    longitude: 13.39,
-  },
-];
-
-const Map = () => {
-  const [mapRegion, setmapRegion] = useState({
-    latitude: 52.52,
-    longitude: 13.405,
-    latitudeDelta: 0.0722,
-    longitudeDelta: 0.0021,
-  });
-
+type MapType = {
+  markers: Array<MarkerType>;
+  selectedMarker: PropertyType;
+};
+const Map = ({ markers = [], selectedMarker }: MapType) => {
+  const {
+    location: { longitude, latitude },
+  } = selectedMarker;
+  const REGION = {
+    latitude,
+    longitude,
+    latitudeDelta: 0.111,
+    longitudeDelta: 0.11,
+  };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <MapView
-        style={{ alignSelf: "stretch", height: "100%" }}
-        region={mapRegion}
+        style={styles.mapStyle}
+        region={REGION}
+        minZoomLevel={2}
+        maxZoomLevel={20}
       >
-        {MARKERS.map((marker, i) => (
+        {markers.map((marker, i) => (
           <MapMarker key={i.toString()} marker={marker} />
         ))}
       </MapView>
@@ -46,3 +35,13 @@ const Map = () => {
 };
 
 export default Map;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  mapStyle: {
+    alignSelf: "stretch",
+    height: "100%",
+  },
+});

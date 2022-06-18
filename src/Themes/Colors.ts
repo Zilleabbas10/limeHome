@@ -12,6 +12,8 @@ const colors = {
   chevronBtnbgColor: `#CBD5E1`,
   white: "#FFFFFF",
 
+  selectedMarkerBGColor: `#B26422`,
+
   divider: `#9D9E9F`,
   shadowColor: `#000`,
   blackTransparentColor: `rgba(0,0,0,0.5)`,

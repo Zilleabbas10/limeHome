@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { If, Then, Else } from "react-if";
 import {
   AppText,
   CrossButton,
@@ -7,54 +8,92 @@ import {
   Divider,
   IconWithText,
   ImageCarousel,
+  Loader,
   RoomTypesSection,
   ScreenContainer,
 } from "../Components";
 import { HeadingWithFavourite } from "../Components";
 import { APP_CONSTANTS } from "../Constants";
+import { getPropertyDataById } from "../Services";
 import { Metrics } from "../Themes";
+import { DetailedPropertyType } from "../types";
 
-const desc = `Our 32 sqm Junior Suites for long-term stays have a fully equipped kitchen with a small dining area, an excellent double bed (1.60 m), a bathroom with shower as well as high-speed Wi-Fi and smart TV.`;
 const marginBottom = APP_CONSTANTS.IS_ANDROID
   ? Metrics.bottomtabsHeight - Metrics.screenHorizontalPadding / 2
   : Metrics.bottomtabsHeight - Metrics.baseMargin;
-const DetailScreen = () => {
+type DetailScreenType = {
+  route: {
+    params: { id: string; perNightRate: number };
+  };
+};
+const DetailScreen = ({ route }: DetailScreenType) => {
+  const { id, perNightRate } = route.params;
+  const [state, setState] = useState<{
+    property: DetailedPropertyType;
+    loader: boolean;
+  }>({
+    property: {
+      id: "",
+      title: "",
+      distanceFromCity: 0,
+      images: [],
+      description: "",
+    },
+    loader: true,
+  });
+  const { property, loader } = state;
+  const { title, description, distanceFromCity, images } = property;
+
+  const getPropertyById = useCallback(async () => {
+    const property = await getPropertyDataById({ propertyId: id });
+    setState({ ...state, property, loader: false });
+  }, []);
+
+  useEffect(() => {
+    getPropertyById();
+  }, []);
+
   return (
     <ScreenContainer>
-      <>
-        <ScrollView
-          style={{
-            marginBottom,
-          }}
-          showsVerticalScrollIndicator={false}
-        >
-          <CrossButton />
-          <ImageCarousel />
-          <View
+      <If condition={!loader}>
+        <Then>
+          <ScrollView
             style={{
-              paddingHorizontal: Metrics.screenHorizontalPadding / 2,
-              paddingVertical: Metrics.doubleBaseMargin,
+              marginBottom,
             }}
+            showsVerticalScrollIndicator={false}
           >
-            <HeadingWithFavourite />
-            <IconWithText
-              iconName="location-outline"
-              text="6.3 km from city center"
-            />
-            <AppText
+            <CrossButton />
+            <ImageCarousel images={images} />
+            <View
               style={{
-                paddingTop: Metrics.doubleBaseMargin - 5,
-                lineHeight: 25,
+                paddingHorizontal: Metrics.screenHorizontalPadding / 2,
+                paddingVertical: Metrics.doubleBaseMargin,
               }}
-              text={desc}
-            />
-            <Divider marginVertical={Metrics.doubleBaseMargin} />
-            <RoomTypesSection />
-          </View>
-        </ScrollView>
+            >
+              <HeadingWithFavourite headingTitle={title} />
+              <IconWithText
+                iconName="location-outline"
+                text={`${distanceFromCity} km from city center`}
+              />
+              <AppText
+                style={{
+                  paddingTop: Metrics.doubleBaseMargin - 5,
+                  lineHeight: 25,
+                }}
+                text={description}
+              />
+              <Divider marginVertical={Metrics.doubleBaseMargin} />
+              <RoomTypesSection />
+            </View>
+          </ScrollView>
 
-        <DetailsFooter />
-      </>
+          <DetailsFooter perNightRate={perNightRate} />
+        </Then>
+        <Else>
+          <Loader />
+        </Else>
+      </If>
     </ScreenContainer>
   );
 };

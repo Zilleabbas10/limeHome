@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { If, Then } from "react-if";
 import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
-import { Colors } from "../../Themes";
+import { Colors, Metrics } from "../../Themes";
 
 type ImageTileType = {
   uri: string;
@@ -15,8 +16,8 @@ const ImageTile = ({
   width = "100%",
   height = "100%",
   resizeMode = "stretch",
-  borderTopLeftRadius = 10,
-  borderBottomLeftRadius = 10,
+  borderTopLeftRadius = Metrics.baseMargin,
+  borderBottomLeftRadius = Metrics.baseMargin,
 }: ImageTileType) => {
   const [isLoaded, setImageLoaded] = useState(false);
   return (
@@ -26,13 +27,15 @@ const ImageTile = ({
         { borderTopLeftRadius, borderBottomLeftRadius },
       ]}
     >
-      {!isLoaded && (
-        <ActivityIndicator
-          style={styles.activityIndicator}
-          size="small"
-          color={Colors.primaryDisabled}
-        />
-      )}
+      <If condition={!isLoaded}>
+        <Then>
+          <ActivityIndicator
+            style={styles.activityIndicator}
+            size="small"
+            color={Colors.primaryDisabled}
+          />
+        </Then>
+      </If>
       <Image
         style={[
           styles.image,

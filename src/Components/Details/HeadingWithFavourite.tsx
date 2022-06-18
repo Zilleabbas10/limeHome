@@ -3,10 +3,15 @@ import { StyleSheet, View } from "react-native";
 import { Colors, Fonts, Metrics } from "../../Themes";
 import { Heading, IconWithText } from "../Common";
 
-const HeadingWithFavourite = () => {
+type HeadingWithFavouriteType = {
+  headingTitle: string;
+};
+const HeadingWithFavourite = ({
+  headingTitle = "",
+}: HeadingWithFavouriteType) => {
   return (
     <View style={styles.container}>
-      <Heading title="Flower's Berlin" />
+      <Heading title={headingTitle} />
       <View style={styles.ratingContainer}>
         <IconWithText
           iconName="star"

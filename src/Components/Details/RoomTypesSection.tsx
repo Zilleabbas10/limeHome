@@ -1,13 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { APP_CONSTANTS } from "../../Constants";
 import { Colors, Fonts, Metrics } from "../../Themes";
 import { AppText, Heading } from "../Common";
-
-const DATA = [
-  "3x1 Bedrooms suites",
-  "4x2 Bedrooms suites",
-  "2x3 Bedrooms suites",
-];
 
 type RoomTypeChipType = {
   item: string;
@@ -27,7 +22,7 @@ const RoomTypesSection = () => {
     <View>
       <Heading title="Room types available in this location" />
       <View style={styles.chipContainer}>
-        {DATA.map((item, index) => (
+        {APP_CONSTANTS.DATA.map((item, index) => (
           <RoomTypeChip key={index.toString()} item={item} index={index} />
         ))}
       </View>
