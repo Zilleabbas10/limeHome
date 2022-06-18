@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "90%",
     justifyContent: "center",
-    paddingTop: APP_CONSTANTS.IS_ANDROID ? Metrics.baseMargin : 3,
+    paddingTop: APP_CONSTANTS.IS_ANDROID ? Metrics.smallMargin : 3,
   },
 });
